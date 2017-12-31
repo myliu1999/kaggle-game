@@ -37,8 +37,9 @@ def read_csv(filename):
 
 
 def predict_toxic(data):
+    # score: 0.503
     if any(word in data.lower() for word in toxic_words):
-        return 1.0
+        return 0.5
     return 0.0
 
 
@@ -54,8 +55,8 @@ def write_out_answer(output_filename):
     for index, row in df.iterrows():
         f.write('%s,' % row[csv_header[0]])
         for i in range(5):
-            f.write('%d,' % predict_toxic(row[csv_header[1]]))
-        f.write('%d\n' % predict_toxic(row[csv_header[1]]))
+            f.write('%.1f,' % predict_toxic(row[csv_header[1]]))
+        f.write('%.1f\n' % predict_toxic(row[csv_header[1]]))
 
     f.close()
 
