@@ -9,6 +9,7 @@ OUTPUT_FILENAME = 'out.ans'
 
 train_data = 'data/train.csv'
 test_data = 'data/test.csv'
+toxic_data = 'toxic.txt'
 
 csv_header = [
     'id',
@@ -21,7 +22,7 @@ csv_header = [
     'identity_hate'
 ]
 
-toxic_words = ['fuck', 'shit']
+toxic_words = []
 
 
 def get_score(data):
@@ -59,7 +60,18 @@ def write_out_answer(output_filename):
     f.close()
 
 
+def prepare_toxic():
+    t = open(toxic_data, 'r')
+
+    for i in t:
+        toxic_words.append(i.strip('\n'))
+
+    t.close()
+
+
 def main():
+    prepare_toxic()
+
     train_list = list(read_csv(train_data))
     # test_list = list(read_csv(test_data))
     train_list_size = len(train_list)
